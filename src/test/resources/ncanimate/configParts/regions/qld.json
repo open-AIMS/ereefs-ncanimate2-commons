@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "qld",
+        "datatype": "REGION"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "label": "Queensland",
+    "bbox": {
+        "east": 156,
+        "north": -7.6,
+        "south": -29.4,
+        "west": 142.4
+    }
+}

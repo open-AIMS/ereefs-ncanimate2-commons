@@ -1,0 +1,10 @@
+{
+    "_id": {
+        "id": "ereefs-model_gbr4-v2_daily",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "input": "downloads/gbr4_v2_daily",
+    "type": "NETCDF"
+}

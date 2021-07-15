@@ -1,0 +1,28 @@
+{
+    "_id": {
+        "id": "bottom-left-legend",
+        "datatype": "LEGEND"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "colourBandWidth": 20,
+    "colourBandHeight": 300,
+    "position": {
+        "bottom": 5,
+        "left": 5
+    },
+    "title": {
+        "fontColour": "#000000",
+        "fontSize": 16,
+        "position": {
+            "top": 10
+        }
+    },
+    "label": {
+        "fontSize": 14,
+        "position": {
+            "left": 5,
+            "bottom": 5
+        }
+    }
+}

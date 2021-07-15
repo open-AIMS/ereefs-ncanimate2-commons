@@ -1,0 +1,10 @@
+{
+    "_id": {
+        "id": "noaa-model_wave-period",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2019-08-15T11:25:00.000+08:00",
+
+    "input": "downloads/noaa_wave-period",
+    "type": "GRIB2"
+}

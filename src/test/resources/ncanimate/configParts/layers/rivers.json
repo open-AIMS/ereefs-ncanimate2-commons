@@ -1,0 +1,11 @@
+{
+    "_id": {
+        "id": "rivers",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "datasource": "s3://ncanimate/layers/AU_AIMS-GA_GEODATA-TOPO-5M-2004_Rivers.geojson",
+    "style": "s3://ncanimate/styles/AU_AIMS-GA_GEODATA-TOPO-5M-2004_Rivers.sld",
+    "type": "GEOJSON"
+}

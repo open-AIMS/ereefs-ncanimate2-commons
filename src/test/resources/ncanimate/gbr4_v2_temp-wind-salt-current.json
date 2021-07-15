@@ -1,0 +1,275 @@
+{
+    "_id": "gbr4_v2_temp-wind-salt-current",
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+    "version": "2.0",
+
+    "regions": [
+        "qld",
+        "torres-strait",
+        "cape-york",
+        "wet-tropics",
+        "burdekin",
+        "mackay-whitsunday",
+        "fitzroy",
+        "burnett-mary",
+        "brisbane"
+    ],
+
+    "targetHeights": [-12.75, -5.55, -1.5],
+
+    "canvas": {
+        "id": "default-canvas",
+        "texts": {
+            "fromToDate": {
+                "text": "${ctx.dateFrom yyyy-MM-dd} - ${ctx.dateTo yyyy-MM-dd}",
+                "fontSize": 25,
+                "bold": true,
+                "position": {
+                    "top": 28
+                }
+            },
+            "frameDate": { "hidden": true },
+            "authors": {
+                "italic": true
+            }
+        }
+    },
+
+    "defaults": {
+        "panel": {
+            "id": "default-panel",
+            "layers": [
+                "ereefs-model_gbr4-v2",
+                "ereefs-model_gbr4-bgc_924",
+                "world",
+                "australia",
+                "reefs",
+                "coralSea",
+                "catchments",
+                "GBRMPA_Bounds",
+                "rivers",
+                {
+                    "id": "cities",
+                    "style": "s3://ncanimate/styles/World_NE_10m-cities_V3_Ranked_${ctx.region.id}.sld"
+                }
+            ]
+        },
+        "legend": "bottom-left-legend"
+    },
+
+    "panels": [
+        {
+            "id": "temp",
+            "title": {"text": "Temperature ${ctx.targetHeight %.1f}m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "targetHeight": "${ctx.targetHeight}",
+                    "variable": "ereefs/gbr4_v2/temp"
+                }
+            }
+        },
+        {
+            "title": {"text": "Wind speed"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "variable": "ereefs/gbr4_v2/wind"
+                }
+            }
+        },
+        {
+            "title": {"text": "Salinity ${ctx.targetHeight %.1f}m"},
+            "layers": [
+                "world",
+                "australia",
+                {
+                    "id": "ereefs-model_gbr4-v2",
+                    "targetHeight": "${ctx.targetHeight}",
+                    "variable": {
+                        "id": "ereefs/gbr4_v2/salt",
+                        "legend": {
+                            "position": {
+                                "bottom": 10,
+                                "right": 20
+                            }
+                        },
+                        "scaleMin": 2,
+                        "scaleMax": 100
+                    }
+                },
+                "reefs",
+                "coralSea",
+                "catchments",
+                "GBRMPA_Bounds",
+                "rivers",
+                {
+                    "id": "cities",
+                    "style": "s3://ncanimate/styles/World_NE_10m-cities_V3_Ranked_${ctx.region.id}.sld"
+                }
+            ]
+        },
+        {
+            "title": {"text": "Current ${ctx.targetHeight %.1f}m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "targetHeight": "${ctx.targetHeight}",
+                    "variable": {
+                        "id": "ereefs/gbr4_v2/current",
+                        "legend": {
+                            "id": "top-right-legend",
+                            "title": {"text": "Current [ms-1]"}
+                        }
+                    },
+                    "arrowSize": 10
+                }
+            }
+        },
+
+        {
+            "title": {"text": "True colour"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-bgc_924": {
+                    "trueColourVariables": {
+                        "R_470": {
+                            "hexColours": [
+                                "#000001",
+                                "#00005e",
+                                "#000091",
+                                "#0000ae",
+                                "#0000c3",
+                                "#0000d5",
+                                "#0000e0",
+                                "#0000eb",
+                                "#0000f3",
+                                "#0000f9",
+                                "#0000ff"
+                            ],
+                            "scaleMin": 0,
+                            "scaleMax": 0.1
+                        },
+                        "R_555": {
+                            "hexColours": [
+                                "#000100",
+                                "#005e00",
+                                "#009100",
+                                "#00ae00",
+                                "#00c300",
+                                "#00d500",
+                                "#00e000",
+                                "#00eb00",
+                                "#00f300",
+                                "#00f900",
+                                "#00ff00"
+                            ],
+                            "scaleMin": 0,
+                            "scaleMax": 0.1
+                        },
+                        "R_645": {
+                            "hexColours": [
+                                "#010000",
+                                "#5e0000",
+                                "#910000",
+                                "#ae0000",
+                                "#c30000",
+                                "#d50000",
+                                "#e00000",
+                                "#eb0000",
+                                "#f30000",
+                                "#f90000",
+                                "#ff0000"
+                            ],
+                            "scaleMin": 0,
+                            "scaleMax": 0.1
+                        }
+                    }
+                }
+            }
+        }
+
+    ],
+
+    "render": {
+        "workingDirectory": "/tmp/ncanimateTests/working",
+        "directoryUri": "/home/ereefs/derived/ncanimate/products/${id}",
+        "timezone": "Australia/Brisbane",
+        "videoTimeIncrement": {
+            "increment": 1,
+            "unit": "YEAR"
+        },
+
+        "scale": 1,
+
+        "maps": {
+            "svgMap": {
+                "format": "SVG"
+            },
+            "pngMap": {
+                "format": "PNG"
+            }
+        },
+
+        "videos": {
+            "mp4Video": {
+                "format": "MP4",
+                "fps": 12,
+                "blockSize": [16, 16],
+                "commandLines": [
+                    "/usr/bin/ffmpeg -y -r \"${ctx.renderFile.fps}\" -i \"${ctx.videoFrameDirectory}/${ctx.frameFilenamePrefix}_%05d.png\" -vcodec libx264 -profile:v baseline -pix_fmt yuv420p -crf 29 -vf \"pad=${ctx.productWidth}:${ctx.productHeight}:${ctx.padding.left}:${ctx.padding.top}:white\" \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\"",
+                    "/usr/bin/qt-faststart \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\" \"${ctx.outputFile}\"",
+                    "rm \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\""
+                ]
+            },
+            "wmvVideo": {
+                "format": "WMV",
+                "fps": 10,
+                "commandLines": ["/usr/bin/ffmpeg -y -r \"${ctx.renderFile.fps}\" -i \"${ctx.videoFrameDirectory}/${ctx.frameFilenamePrefix}_%05d.png\" -qscale 10 -s ${ctx.productWidth}x${ctx.productHeight} \"${ctx.outputFile}\""],
+                "maxWidth": 1280
+            }
+        },
+
+        "metadata": {
+            "properties": {
+                "region": {
+                    "id": "${ctx.region.id}",
+                    "label": "${ctx.region.label}",
+                    "bbox": {
+                        "east": "${ctx.region.bbox.east}",
+                        "north": "${ctx.region.bbox.north}",
+                        "south": "${ctx.region.bbox.south}",
+                        "west": "${ctx.region.bbox.west}"
+                    }
+                },
+                "targetHeight": "${ctx.targetHeight}",
+                "framePeriod": "${ctx.framePeriod}",
+
+                "testArray": [
+                    "value1",
+                    "value2",
+                    [
+                        "value3.1",
+                        "value3.2",
+                        {
+                            "id": "value3.3",
+                            "nestedArrayValue": [
+                                "value3.3.1",
+                                "value3.3.2"
+                            ],
+                            "nestedObjectValue": {
+                                "id": "value3.3.3"
+                            }
+                        }
+                    ],
+                    {
+                        "id": "value4",
+                        "nestedArrayValue": [
+                            "value4.1",
+                            "value4.2"
+                        ],
+                        "nestedObjectValue": {
+                            "id": "value4.3"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "_id": {
+        "id": "imos",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2020-07-23T16:40:00.000+08:00",
+
+    "input": "downloads/imos",
+    "type": "NETCDF",
+    "arrowSize": 10
+}

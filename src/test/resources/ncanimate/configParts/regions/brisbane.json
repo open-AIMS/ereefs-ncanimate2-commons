@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "brisbane",
+        "datatype": "REGION"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "label": "Brisbane",
+    "bbox": {
+        "east": 156,
+        "north": -22.5,
+        "south": -28.7,
+        "west": 152.13
+    }
+}

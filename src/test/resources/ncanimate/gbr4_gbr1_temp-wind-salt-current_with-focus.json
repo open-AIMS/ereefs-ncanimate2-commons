@@ -1,0 +1,132 @@
+{
+    "_id": "gbr4_gbr1_temp-wind-salt-current_with-focus",
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+    "version": "2.0",
+
+    "regions": [
+        "qld",
+        "torres-strait",
+        "cape-york",
+        "wet-tropics",
+        "burdekin",
+        "mackay-whitsunday",
+        "fitzroy",
+        "burnett-mary",
+        "brisbane"
+    ],
+
+    "targetHeights": [-12.75, -5.55, -1.5],
+
+    "canvas": {
+        "id": "default-canvas",
+        "texts": {
+            "fromToDate": {
+                "text": "${ctx.dateFrom yyyy-MM-dd} - ${ctx.dateTo yyyy-MM-dd}",
+                "fontSize": 25,
+                "bold": true,
+                "position": {
+                    "top": 28
+                }
+            },
+            "frameDate": { "hidden": true },
+            "authors": {
+                "italic": true
+            }
+        }
+    },
+
+    "defaults": {
+        "panel": {
+            "id": "default-panel",
+            "layers": [
+                "ereefs-model_gbr4-v2",
+                "ereefs-model_gbr1-v2",
+                "world",
+                "australia",
+                "reefs",
+                "coralSea",
+                "catchments",
+                "GBRMPA_Bounds",
+                "rivers",
+                {
+                    "id": "cities",
+                    "style": "s3://ncanimate/styles/World_NE_10m-cities_V3_Ranked_${ctx.region.id}.sld"
+                }
+            ]
+        },
+        "legend": "bottom-left-legend"
+    },
+
+    "focusLayers": ["ereefs-model_gbr1-v2"],
+
+    "panels": [
+        {
+            "id": "temp",
+            "title": {"text": "Temperature ${ctx.targetHeight %.1f}m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr1-v2": {
+                    "targetHeight": "${ctx.targetHeight}",
+                    "variable": "ereefs/gbr4_v2/temp"
+                }
+            }
+        },
+        {
+            "title": {"text": "Wind speed"},
+            "layerOverwrites": {
+                "ereefs-model_gbr1-v2": {
+                    "variable": "ereefs/gbr4_v2/wind"
+                }
+            }
+        },
+
+        {
+            "title": {"text": "Salinity ${ctx.targetHeight %.1f}m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "variable": "ereefs/gbr4_v2/salt"
+                }
+            }
+        },
+        {
+            "title": {"text": "Current ${ctx.targetHeight %.1f}m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "targetHeight": "${ctx.targetHeight}",
+                    "variable": {
+                        "id": "ereefs/gbr4_v2/current",
+                        "legend": {
+                            "id": "top-right-legend",
+                            "title": {"text": "Current [ms-1]"}
+                        }
+                    },
+                    "arrowSize": 10
+                }
+            }
+        }
+    ],
+
+    "render": {
+        "workingDirectory": "/tmp/ncanimateTests/working",
+        "directoryUri": "/home/ereefs/derived/ncanimate/products/${id}",
+        "timezone": "Australia/Brisbane",
+        "videoTimeIncrement": {
+            "increment": 1,
+            "unit": "MONTH"
+        },
+
+        "scale": 1,
+
+        "videos": {
+            "mp4Video": {
+                "format": "MP4",
+                "fps": 12,
+                "blockSize": [16, 16],
+                "commandLines": [
+                    "/usr/bin/ffmpeg -y -r \"${ctx.renderFile.fps}\" -i \"${ctx.videoFrameDirectory}/${ctx.frameFilenamePrefix}_%05d.png\" -vcodec libx264 -profile:v baseline -pix_fmt yuv420p -crf 29 -vf \"pad=${ctx.productWidth}:${ctx.productHeight}:${ctx.padding.left}:${ctx.padding.top}:white\" \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\"",
+                    "/usr/bin/qt-faststart \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\" \"${ctx.outputFile}\"",
+                    "rm \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\""
+                ]
+            }
+        }
+    }
+}

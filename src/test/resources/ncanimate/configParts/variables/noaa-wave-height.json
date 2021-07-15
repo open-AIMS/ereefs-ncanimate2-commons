@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "noaa/wave/height",
+        "datatype": "VARIABLE"
+    },
+    "lastModified": "2019-08-15T11:25:00.000+08:00",
+
+    "variableId": "Significant_height_of_combined_wind_waves_and_swell_surface",
+    "legend": {
+        "title": { "text": "Waves height (m)" }
+    },
+    "colourPaletteName": "x-Rainbow",
+    "scaleMax": 5,
+    "scaleMin": 0
+}

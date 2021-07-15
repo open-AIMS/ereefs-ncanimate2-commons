@@ -1,0 +1,10 @@
+{
+    "_id": "downloads/gbr4_bgc_924",
+    "enabled": true,
+    "filenameTemplate": "gbr4_bgc_simple_{year}-{month}.nc",
+    "catalogueUrl": "http://dapds00.nci.org.au/thredds/catalog/fx3/gbr4_bgc_924/catalog.xml",
+    "output": {
+        "downloadDir": "/tmp/netcdf/gbr4_bgc_924",
+        "destination": "/home/netcdf/gbr4_bgc_924"
+    }
+}

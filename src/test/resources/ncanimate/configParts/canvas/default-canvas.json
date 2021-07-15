@@ -1,0 +1,65 @@
+{
+    "_id": {
+        "id": "default-canvas",
+        "datatype": "CANVAS"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "backgroundColour": "#FFFFFF",
+    "padding": {
+        "top": 48,
+        "left": 16,
+        "bottom": 49,
+        "right": 16
+    },
+    "paddingBetweenPanels": 16,
+    "texts": {
+        "licence": {
+            "fontSize": 12,
+            "bold": false,
+            "text": "Licensing: ${layers.licences}",
+            "position": {
+                "bottom": 10,
+                "right": 16
+            },
+            "italic": false
+        },
+        "region": {
+            "fontSize": 25,
+            "bold": false,
+            "text": "${ctx.region.label}",
+            "position": {
+                "top": 28,
+                "left": 16
+            },
+            "italic": false
+        },
+        "frameDate": {
+            "fontSize": 25,
+            "bold": true,
+            "text": "${ctx.frameDate dd-MMM-yyyy}",
+            "position": {"top": 30},
+            "italic": false
+        },
+        "frequency": {
+            "fontSize": 25,
+            "bold": false,
+            "text": "${ctx.framePeriod}",
+            "position": {
+                "top": 28,
+                "right": 16
+            },
+            "italic": false
+        },
+        "authors": {
+            "fontSize": 12,
+            "bold": false,
+            "text": "Data: ${layers.authors}. Map generation: AIMS",
+            "position": {
+                "bottom": 28,
+                "right": 16
+            },
+            "italic": false
+        }
+    }
+}

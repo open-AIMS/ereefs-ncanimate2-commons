@@ -1,0 +1,12 @@
+{
+    "_id": {
+        "id": "wms",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "type": "WMS",
+    "server": "https://maps.eatlas.org.au/maps/ows",
+    "layerName": "ea:basemap",
+    "styleName": "nolabel"
+}

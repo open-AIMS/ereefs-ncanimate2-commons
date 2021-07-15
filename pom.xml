@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>au.gov.aims</groupId>
+    <artifactId>ereefs-ncanimate2-commons</artifactId>
+    <version>2.1</version>
+
+    <!--
+        *** IMPORTANT ***
+        Use JDK 1.8
+        The NetCDF library is NOT compatible with recent versions of Java (such as JDK 11).
+        You MUST install the old JDK 1.8 and set your "Project Structure" to use
+        the old Java 1.8 otherwise you WON't be able to run tests or compile this project.
+    -->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>github_openaims</id>
+            <name>GitHub Open-AIMS repo</name>
+            <url>https://maven.pkg.github.com/open-AIMS/*</url>
+        </repository>
+
+        <repository>
+            <id>github_aimsks</id>
+            <name>GitHub AIMS-KS repo</name>
+            <url>https://maven.pkg.github.com/aims-ks/*</url>
+        </repository>
+
+        <!-- AIMS ks maven repository on GitHub -->
+        <repository>
+            <id>aims-ks.mvn-mirror-repo</id>
+            <name>AIMS Knowledge System Maven Mirror repository</name>
+            <url>https://raw.githubusercontent.com/aims-ks/mvn-mirror-repo/master/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>au.gov.aims</groupId>
+            <artifactId>ereefs-database</artifactId>
+            <version>0.6.18</version>
+        </dependency>
+
+        <!-- Used for JUnit tests - Not included in the war -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- In-memory MongoDB server used to run JUnit tests -->
+        <dependency>
+            <groupId>de.bwaldvogel</groupId>
+            <artifactId>mongo-java-server</artifactId>
+            <version>1.18.2</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github_openaims</id>
+            <name>GitHub Open-AIMS Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/open-AIMS/ereefs-ncanimate2-commons</url>
+        </repository>
+    </distributionManagement>
+
+</project>

@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "noaa/wave/period",
+        "datatype": "VARIABLE"
+    },
+    "lastModified": "2019-08-15T11:25:00.000+08:00",
+
+    "variableId": "Primary_wave_mean_period_surface",
+    "legend": {
+        "title": { "text": "Waves period (s)" }
+    },
+    "colourPaletteName": "x-Rainbow",
+    "scaleMax": 20,
+    "scaleMin": 0
+}

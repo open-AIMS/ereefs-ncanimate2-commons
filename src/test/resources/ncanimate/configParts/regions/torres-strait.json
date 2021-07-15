@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "torres-strait",
+        "datatype": "REGION"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "label": "Torres Strait",
+    "bbox": {
+        "east": 144.7,
+        "north": -7.45,
+        "south": -12.2,
+        "west": 141.8
+    }
+}

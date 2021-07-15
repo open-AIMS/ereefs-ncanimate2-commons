@@ -1,0 +1,14 @@
+{
+    "_id": {
+        "id": "downloads/gbr4_bgc_924",
+        "datatype": "INPUT"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "timeIncrement": {
+        "increment": 1,
+        "unit": "DAY"
+    },
+    "licence": "CC-BY 4.0 Aust",
+    "author": "eReefs CSIRO GBR4 Bio Geo Chemical Model"
+}

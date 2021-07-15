@@ -1,0 +1,182 @@
+{
+    "_id": "noaa_wave",
+    "version": "2.0",
+    "lastModified": "2019-08-15T11:25:00.000+08:00",
+    "enabled": true,
+
+    "regions": ["qld"],
+
+    // NOAA Wave data has no heights
+
+    "canvas": {
+        "id": "default-canvas",
+        "padding": {
+            "top": 110
+        },
+        "texts": {
+            "fromToDate": {
+                // Australian Eastern Standard Time
+                "text": "${ctx.frameDateFrom dd-MMM-yyyy} ${ctx.frameDateFrom HH:mm} - ${ctx.frameDateTo HH:mm} AEST",
+                "fontSize": 25,
+                "bold": true,
+                "position": {
+                    "top": 60
+                }
+            },
+            "frameDate": { "hidden": true },
+
+            "windDate": {
+                "text": [
+                    "${layerCtx.ereefs-model_gbr4-v2.frameDate dd-MMM-yyyy_HH:mm}",
+                    ""
+                ],
+                "fontSize": 15,
+                "position": {
+                    "bottom": 90,
+                    "left": 145
+                }
+            },
+
+            "waveDate": {
+                "text": [
+                    "${layerCtx.noaa-model_wave-height.frameDate dd-MMM-yyyy_HH:mm}",
+                    ""
+                ],
+                "fontSize": 15,
+                "position": {
+                    "bottom": 90,
+                    "left": 1080
+                }
+            },
+
+            "authors": {
+                "italic": true
+            }
+        }
+    },
+
+    "defaults": {
+        "panel": {
+            "id": "default-panel",
+            "layers": [
+                "noaa-model_wave-height",
+                "noaa-model_wave-dir",
+                "ereefs-model_gbr4-v2",
+                "world",
+                "australia",
+                "reefs",
+                "coralSea",
+                "catchments",
+                "GBRMPA_Bounds",
+                "rivers",
+                {
+                    "id": "cities",
+                    "style": "/tmp/ncanimateTests/s3/styles/World_NE_10m-cities_V3_Ranked_${ctx.region.id}.sld"
+                }
+            ]
+        },
+        "legend": {
+            "width": 20,
+            "height": 300,
+            "position": {
+                "bottom": 5,
+                "left": 5
+            },
+            "title": {
+                "fontColour": "#000000",
+                "fontSize": 16,
+                "bold": true,
+                "position": {
+                    "top": 10
+                }
+            },
+            "label": {
+                "fontSize": 14,
+                "position": {
+                    "left": 5,
+                    "bottom": 5
+                }
+            }
+        }
+    },
+
+    "panels": [
+        {
+            "title": { "text": "Wind speed" },
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "variable": "ereefs/gbr4_v2/wind",
+                    "arrowSize": 10
+                }
+            }
+        },
+        {
+            "title": {"text": "Current -1.5m"},
+            "layerOverwrites": {
+                "ereefs-model_gbr4-v2": {
+                    "targetHeight": -1.5,
+                    "variable": {
+                        "id":"ereefs/gbr4_v2/current",
+                        "legend": {"title": {"text": "Current (ms⁻¹)"}}
+                    },
+                    "arrowVariable": "ereefs/gbr4_v2/current",
+                    "arrowSize": 10
+                }
+            }
+        },
+        {
+            "id": "noaa-wave",
+            "title": { "text": "Wave" },
+            "layerOverwrites": {
+                "noaa-model_wave-height": {
+                    "variable": "noaa/wave/height"
+                },
+                "noaa-model_wave-dir": {
+                    "arrowVariable": "noaa/wave/dir",
+                    "arrowSize": 15
+                }
+            }
+        }
+    ],
+
+    "render": {
+        "workingDirectory": "/tmp/ncanimateTests/working",
+        "frameDirectoryUri": "/tmp/ncanimateTests/s3/ncanimate/frames/${id}",
+        "paletteDirectoryUri": "/tmp/ncanimateTests/s3/palettes",
+        "directoryUri": "/tmp/ncanimateTests/s3/ncanimate/products/${id}",
+        "timezone": "Australia/Brisbane",
+
+//        "scale": 0.5,
+
+        // Overwrites
+//        "frameTimeIncrement": {
+//            "increment": 3,
+//            "unit": "HOUR"
+//        },
+
+        "videoTimeIncrement": {
+            "increment": 1,
+            "unit": "YEAR"
+        },
+
+        "videos": {
+            // NOTE: The blockSize attribute quantise the productWidth x productHeight values.
+            "mp4Video": {
+                "format": "MP4",
+                "fps": 12,
+                "blockSize": [16, 16],
+                "commandLines": [
+                    "/usr/bin/ffmpeg -y -r \"${ctx.renderFile.fps}\" -i \"${ctx.videoFrameDirectory}/${ctx.frameFilenamePrefix}_%05d.png\" -vcodec libx264 -profile:v baseline -pix_fmt yuv420p -crf 29 -vf \"pad=${ctx.productWidth}:${ctx.productHeight}:${ctx.padding.left}:${ctx.padding.top}:white\" \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\"",
+                    "/usr/bin/qt-faststart \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\" \"${ctx.outputFile}\"",
+                    "rm \"${ctx.outputDirectory}/temp_${ctx.outputFilename}\""
+                ]
+            },
+            "wmvVideo": {
+                "format": "WMV",
+                "fps": 10,
+                "commandLines": ["/usr/bin/ffmpeg -y -r \"${ctx.renderFile.fps}\" -i \"${ctx.videoFrameDirectory}/${ctx.frameFilenamePrefix}_%05d.png\" -qscale 10 -s ${ctx.productWidth}x${ctx.productHeight} \"${ctx.outputFile}\""],
+                "maxWidth": 1280
+            }
+        }
+    }
+}

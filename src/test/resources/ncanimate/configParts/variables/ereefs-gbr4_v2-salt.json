@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "ereefs/gbr4_v2/salt",
+        "datatype": "VARIABLE"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "variableId": "salt",
+    "legend": {
+        "title": {"text": "Salinity"}
+    },
+    "colourPaletteName": "x-Rainbow-inv",
+    "scaleMax": 36,
+    "scaleMin": 32
+}

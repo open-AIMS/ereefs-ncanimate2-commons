@@ -1,0 +1,15 @@
+{
+    "_id": {
+        "id": "noaa/wave/dir",
+        "datatype": "VARIABLE"
+    },
+    "lastModified": "2019-08-15T11:25:00.000+08:00",
+
+    "variableId": "Primary_wave_direction_surface",
+
+    // Rotated (Angle of 0 = South instead of North in NOAA's files)
+    "northAngle": 180
+
+    // Mirrored
+    //"directionTurns": -360
+}

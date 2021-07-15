@@ -1,0 +1,13 @@
+{
+    "_id": {
+        "id": "cities",
+        "datatype": "LAYER"
+    },
+    "lastModified": "2019-08-15T10:30:00.000+08:00",
+
+    "datasource": "s3://ncanimate/layers/World_NE_10m-cities_V3_Ranked_NRM.csv",
+    "style": "s3://ncanimate/styles/World_NE_10m-cities_V3_Ranked_qld.sld",
+    "type": "CSV",
+    "latitudeColumn": "LATITUDE",
+    "longitudeColumn": "LONGITUDE"
+}
