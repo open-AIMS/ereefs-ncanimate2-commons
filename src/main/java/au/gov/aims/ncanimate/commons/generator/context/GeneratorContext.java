@@ -552,14 +552,27 @@ public class GeneratorContext {
         int maxPanelHeight = 0;
         if (panelConfs != null) {
             for (NcAnimatePanelBean panelConf : panelConfs) {
+                int leftMargin = 0, rightMargin = 0, topMargin = 0, bottomMargin = 0;
+                NcAnimatePaddingBean margin = panelConf.getMargin();
+                if (margin != null) {
+                    leftMargin = NcAnimateUtils.getInt(margin.getLeft());
+                    rightMargin = NcAnimateUtils.getInt(margin.getRight());
+
+                    topMargin = NcAnimateUtils.getInt(margin.getTop());
+                    bottomMargin = NcAnimateUtils.getInt(margin.getBottom());
+                }
+
                 int panelWidth = this.getPanelWidth(panelConf);
                 Integer panelHeight = this.getPanelHeight(panelConf);
 
                 // Add to canvas size.
-                if (panelHeight != null && panelHeight > maxPanelHeight) {
-                    maxPanelHeight = panelHeight;
+                if (panelHeight != null) {
+                    panelHeight += topMargin + bottomMargin;
+                    if (panelHeight > maxPanelHeight) {
+                        maxPanelHeight = panelHeight;
+                    }
                 }
-                canvasWidth += panelWidth + betweenPanelPadding;
+                this.canvasWidth += panelWidth + betweenPanelPadding + leftMargin + rightMargin;
             }
         }
         // Remove the last "between" padding for the canvas width.
