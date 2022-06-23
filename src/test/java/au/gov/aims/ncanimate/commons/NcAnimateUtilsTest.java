@@ -135,7 +135,7 @@ public class NcAnimateUtilsTest extends DatabaseTestBase {
 
         {
             String pattern = "Licensing: ${layers[ereefs-model_gbr4-v2].input.licence}";
-            String expected = "Licensing: CC-BY 4.0 Aust";
+            String expected = "Licensing: CC-BY 4.0";
 
             GeneratorContext context = new GeneratorContext(ncAnimateConfig);
             context.setDateRange(dateRange);
@@ -147,7 +147,7 @@ public class NcAnimateUtilsTest extends DatabaseTestBase {
 
         {
             String pattern = "Licensing: ${panels[temp].layers[ereefs-model_gbr4-v2].input.licence}";
-            String expected = "Licensing: CC-BY 4.0 Aust";
+            String expected = "Licensing: CC-BY 4.0";
 
             GeneratorContext context = new GeneratorContext(ncAnimateConfig);
             context.setDateRange(dateRange);
@@ -159,7 +159,7 @@ public class NcAnimateUtilsTest extends DatabaseTestBase {
 
         {
             String pattern = "Licensing: ${layers.licences}";
-            String expected = "Licensing: CC-BY 4.0 Aust";
+            String expected = "Licensing: CC-BY 4.0";
 
             GeneratorContext context = new GeneratorContext(ncAnimateConfig);
             context.setDateRange(dateRange);
